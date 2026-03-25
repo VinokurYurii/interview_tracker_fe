@@ -7,16 +7,13 @@ import { AuthContext } from './auth-context.ts';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => !!getToken());
 
   useEffect(() => {
-    let cancelled = false;
     const token = getToken();
+    if (!token) return;
 
-    if (!token) {
-      setIsLoading(false);
-      return;
-    }
+    let cancelled = false;
 
     getCurrentUser()
       .then((userData) => {

@@ -28,6 +28,11 @@
     --shadow: rgba(0, 0, 0, 0.3);
     --chart-grid: rgba(255, 255, 255, 0.05);
     --overlay: rgba(0, 0, 0, 0.5);
+    --accent-green: #5a8a5a;
+    --accent-green-light: #6b9e6b;
+    --accent-green-gradient: linear-gradient(135deg, #5a8a5a 0%, #6b9e6b 50%, #7aad7a 100%);
+    --accent-green-gradient-hover: linear-gradient(135deg, #6b9e6b 0%, #7aad7a 50%, #8abc8a 100%);
+    --accent-green-shadow: rgba(90, 138, 90, 0.3);
 }
 
 /* ========================================
@@ -51,6 +56,11 @@
     --shadow: rgba(0, 0, 0, 0.08);
     --chart-grid: rgba(0, 0, 0, 0.05);
     --overlay: rgba(0, 0, 0, 0.5);
+    --accent-green: #6b9e6b;
+    --accent-green-light: #7aad7a;
+    --accent-green-gradient: linear-gradient(135deg, #6b9e6b 0%, #7aad7a 50%, #8abc8a 100%);
+    --accent-green-gradient-hover: linear-gradient(135deg, #7aad7a 0%, #8abc8a 50%, #9acc9a 100%);
+    --accent-green-shadow: rgba(107, 158, 107, 0.3);
 }
 
 /* ========================================
