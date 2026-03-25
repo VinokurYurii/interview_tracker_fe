@@ -1,0 +1,75 @@
+/* ========================================
+   Form Elements
+======================================== */
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px 18px;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: inherit;
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--accent-copper);
+}
+
+.form-input::placeholder {
+    color: var(--text-muted);
+}
+
+/* ========================================
+   Buttons
+======================================== */
+.btn {
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid var(--border);
+    background-color: transparent;
+    color: var(--text-primary);
+}
+
+.btn:hover {
+    background-color: var(--bg-card-hover);
+}
+
+.btn.primary {
+    background: var(--accent-gradient);
+    border: none;
+    color: #1c1c1e;
+}
+
+.btn.primary:hover {
+    background: var(--accent-gradient-hover);
+    transform: translateY(-2px);
+}
+
+.btn.danger {
+    color: var(--loss);
+    border-color: var(--loss);
+}
+
+.btn.danger:hover {
+    background-color: rgba(194, 120, 120, 0.15);
+}

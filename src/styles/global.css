@@ -1,0 +1,76 @@
+/* ========================================
+   CSS Reset & Base
+======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ========================================
+   CSS Variables - Dark Theme (Default)
+======================================== */
+:root, [data-theme="dark"] {
+    --bg-primary: #1c1c1e;
+    --bg-secondary: #232325;
+    --bg-card: #2c2c2e;
+    --bg-card-hover: #343436;
+    --accent-copper: #b87333;
+    --accent-copper-light: #c9845a;
+    --accent-gradient: linear-gradient(135deg, #b87333 0%, #d4945a 50%, #c9845a 100%);
+    --accent-gradient-hover: linear-gradient(135deg, #c9845a 0%, #daa57a 50%, #d4945a 100%);
+    --text-primary: #f5f0e8;
+    --text-secondary: #a8a8a8;
+    --text-muted: #6e6e6e;
+    --gain: #6b8e6b;
+    --loss: #c27878;
+    --border: #3a3a3c;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --chart-grid: rgba(255, 255, 255, 0.05);
+    --overlay: rgba(0, 0, 0, 0.5);
+}
+
+/* ========================================
+   CSS Variables - Light Theme
+======================================== */
+[data-theme="light"] {
+    --bg-primary: #f5f5f7;
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f0f0f2;
+    --accent-copper: #d4945a;
+    --accent-copper-light: #e8b88a;
+    --accent-gradient: linear-gradient(135deg, #d4945a 0%, #e8b88a 50%, #f0c89a 100%);
+    --accent-gradient-hover: linear-gradient(135deg, #e8b88a 0%, #f0c89a 50%, #f5d4a8 100%);
+    --text-primary: #1c1c1e;
+    --text-secondary: #6e6e6e;
+    --text-muted: #9a9a9a;
+    --gain: #5a9a5a;
+    --loss: #c76b6b;
+    --border: #e0e0e2;
+    --shadow: rgba(0, 0, 0, 0.08);
+    --chart-grid: rgba(0, 0, 0, 0.05);
+    --overlay: rgba(0, 0, 0, 0.5);
+}
+
+/* ========================================
+   Body & Typography
+======================================== */
+body {
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+    color: var(--accent-copper);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--accent-copper-light);
+}
