@@ -1,0 +1,31 @@
+.btn {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    width: 46px;
+    height: 46px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background-color: var(--bg-card-hover);
+    border-color: var(--accent-copper);
+}
+
+.btn svg {
+    stroke: var(--text-secondary);
+}
+
+@media (max-width: 1024px) {
+    .btn {
+        top: 16px;
+        right: 16px;
+    }
+}

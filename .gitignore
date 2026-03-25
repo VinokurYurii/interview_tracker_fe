@@ -19,6 +19,9 @@ dist-ssr
 # Reference docs (swagger, design mockups)
 .docs
 
+# Claude Code
+CLAUDE.md
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
