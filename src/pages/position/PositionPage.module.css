@@ -1,0 +1,44 @@
+/* ========================================
+   Position Page — Two-column Grid
+======================================== */
+.container {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 32px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.loading,
+.error {
+    padding: 40px;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.error {
+    color: var(--loss);
+}
+
+/* ========================================
+   Page Header — spans both columns
+======================================== */
+.pageHeader {
+    grid-column: 1 / -1;
+}
+
+.pageHeader h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.companyName {
+    font-size: 16px;
+    color: var(--text-secondary);
+}

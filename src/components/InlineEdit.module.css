@@ -1,0 +1,23 @@
+.editableValue {
+    display: block;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    color: var(--text-primary);
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.editableValue:hover {
+    background-color: var(--bg-card-hover);
+}
+
+.placeholder {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.inlineInput {
+    width: 100%;
+}

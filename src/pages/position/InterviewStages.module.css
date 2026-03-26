@@ -1,0 +1,218 @@
+/* ========================================
+   Container & Header
+======================================== */
+.container {
+    min-width: 0;
+}
+
+.loading {
+    padding: 40px;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.empty {
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 20px 0;
+}
+
+/* ========================================
+   Accordion
+======================================== */
+.accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.accordionItem {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.accordionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.accordionHeader:hover {
+    background-color: var(--bg-card-hover);
+}
+
+.accordionLeft {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.chevron {
+    font-size: 14px;
+    color: var(--text-secondary);
+    width: 14px;
+}
+
+.stageType {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.statusBadge {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 6px;
+    text-transform: capitalize;
+}
+
+.status_planned {
+    background-color: rgba(168, 168, 168, 0.15);
+    color: var(--text-secondary);
+}
+
+.status_done {
+    background-color: rgba(90, 138, 90, 0.2);
+    color: var(--gain);
+}
+
+.status_declined {
+    background-color: rgba(194, 120, 120, 0.15);
+    color: var(--loss);
+}
+
+/* ========================================
+   Trash Button (shared for stage & feedback)
+======================================== */
+.trashBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    padding: 4px;
+    transition: color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.trashBtn:hover {
+    color: var(--loss);
+}
+
+.trashBtn svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* ========================================
+   Accordion Body
+======================================== */
+.accordionBody {
+    padding: 0 20px 20px;
+    border-top: 1px solid var(--border);
+}
+
+.field {
+    margin-top: 16px;
+}
+
+.fieldLabel {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+.statusSelect {
+    appearance: none;
+    cursor: pointer;
+    max-width: 180px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a8a8a8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+}
+
+/* ========================================
+   Feedback Section
+======================================== */
+.feedbackSection {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+}
+
+.feedbackHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.feedbackTitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.addFeedbackBtn {
+    padding: 6px 14px;
+    font-size: 13px;
+}
+
+.noFeedbacks {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 14px;
+}
+
+.feedbackRow {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.feedbackRow:last-child {
+    border-bottom: none;
+}
+
+.feedbackType {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background-color: rgba(184, 115, 51, 0.15);
+    color: var(--accent-copper);
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.feedbackContent {
+    flex: 1;
+    min-width: 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
