@@ -1,0 +1,33 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: var(--overlay);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    padding: 20px;
+}
+
+.modal {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 24px 48px var(--shadow);
+}
+
+.message {
+    font-size: 16px;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
