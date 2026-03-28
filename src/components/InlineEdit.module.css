@@ -20,4 +20,5 @@
 
 .inlineInput {
     width: 100%;
+    resize: none;
 }

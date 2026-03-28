@@ -22,7 +22,7 @@
     font-size: 16px;
     font-family: inherit;
     color: var(--text-primary);
-    transition: all 0.2s ease;
+    transition: border-color 0.2s ease;
 }
 
 .form-input:focus {

@@ -41,6 +41,11 @@ export function SignupPage() {
     e.preventDefault();
     setErrors([]);
 
+    if (email.length > 100) {
+      setErrors(['Email must be 100 characters or less']);
+      return;
+    }
+
     if (password !== passwordConfirmation) {
       setErrors(['Passwords do not match']);
       return;
@@ -50,11 +55,11 @@ export function SignupPage() {
 
     try {
       await signup({
-        first_name: firstName,
-        last_name: lastName,
-        email,
-        password,
-        password_confirmation: passwordConfirmation,
+        first_name: firstName.trim(),
+        last_name: lastName.trim(),
+        email: email.trim(),
+        password: password.trim(),
+        password_confirmation: passwordConfirmation.trim(),
       });
       navigate('/home');
     } catch (err) {
@@ -140,6 +145,7 @@ export function SignupPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  maxLength={100}
                 />
               </div>
             </div>
