@@ -20,10 +20,16 @@ export function LoginPage() {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError('');
+
+    if (email.length > 100) {
+      setError('Email must be 100 characters or less');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      await login({ email, password });
+      await login({ email: email.trim(), password: password.trim() });
       navigate('/home');
     } catch (err) {
       if (err instanceof ApiError) {
@@ -66,6 +72,7 @@ export function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  maxLength={100}
                 />
               </div>
             </div>

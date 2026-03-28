@@ -59,7 +59,7 @@ export function InlineEdit({ value, onSave, as = 'input', placeholder = 'Click t
       onBlur={save}
       onKeyDown={handleKeyDown}
       autoFocus
-      rows={as === 'textarea' ? 3 : undefined}
+      rows={as === 'textarea' ? Math.max(3, draft.split('\n').length) : undefined}
     />
   );
 }
