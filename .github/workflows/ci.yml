@@ -84,9 +84,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            mkdir -p ~/app
-            curl -so ~/app/docker-compose.yml https://raw.githubusercontent.com/VinokurYurii/interview_tracker_be/main/deploy/docker-compose.yml
-            cd ~/app
-            docker compose pull frontend
-            docker compose up -d frontend
+            cd ~/app &&
+            docker compose pull frontend &&
+            docker compose up -d frontend &&
             docker image prune -f
