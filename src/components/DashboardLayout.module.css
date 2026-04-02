@@ -120,6 +120,8 @@
     align-items: center;
     gap: 12px;
     margin-bottom: 48px;
+    text-decoration: none;
+    color: inherit;
 }
 
 .logoIcon {
@@ -279,6 +281,41 @@
 .logoutBtn svg {
     width: 22px;
     height: 22px;
+}
+
+/* ========================================
+   Content Header
+======================================== */
+.contentHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+}
+
+.pageTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.userLink {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.userLink:hover {
+    color: var(--text-primary);
+    background-color: var(--bg-card);
 }
 
 /* ========================================

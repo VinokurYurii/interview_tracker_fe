@@ -1,15 +1,16 @@
 import { useAuth } from '../features/auth/useAuth.ts';
 import { usePositions } from '../features/positions/usePositions.ts';
+import { useSetPageTitle } from '../features/page-title/useSetPageTitle.ts';
 import styles from './HomePage.module.css';
 
 export function HomePage() {
+  useSetPageTitle('Dashboard');
   const { user } = useAuth();
   const { positions } = usePositions();
 
   return (
     <>
       <div className={styles.pageHeader}>
-        <h1>Dashboard</h1>
         <p>Welcome back, {user?.first_name}! Here's your interview overview.</p>
       </div>
 

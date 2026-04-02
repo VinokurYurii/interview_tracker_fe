@@ -15,3 +15,8 @@ export interface SignupCredentials extends LoginCredentials {
   first_name: string;
   last_name: string;
 }
+
+export interface UpdateUserData {
+  first_name?: string;
+  last_name?: string;
+}

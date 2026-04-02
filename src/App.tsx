@@ -8,6 +8,7 @@ import { LoginPage } from './pages/LoginPage.tsx';
 import { SignupPage } from './pages/SignupPage.tsx';
 import { HomePage } from './pages/HomePage.tsx';
 import { PositionPage } from './pages/position/PositionPage.tsx';
+import { ProfilePage } from './pages/ProfilePage.tsx';
 
 function RootRedirect() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -25,6 +26,7 @@ function App() {
         <Route element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
           <Route path="/home" element={<HomePage />} />
           <Route path="/positions/:id" element={<PositionPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Route>
         <Route path="*" element={<RootRedirect />} />
       </Routes>

@@ -1,15 +1,18 @@
 import { useState } from 'react';
-import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../features/auth/useAuth.ts';
 import { usePositions } from '../features/positions/usePositions.ts';
 import { PositionsProvider } from '../features/positions/PositionsContext.tsx';
+import { PageTitleProvider } from '../features/page-title/PageTitleProvider.tsx';
+import { usePageTitle } from '../features/page-title/usePageTitle.ts';
 import { ThemeToggleSwitch } from './ThemeToggleSwitch.tsx';
 import { CreatePositionModal } from './CreatePositionModal.tsx';
 import styles from './DashboardLayout.module.css';
 
 function DashboardLayoutInner() {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
+  const { title } = usePageTitle();
   const { positions } = usePositions();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -40,10 +43,10 @@ function DashboardLayoutInner() {
 
       <div className={styles.dashboard}>
         <aside className={`${styles.sidebar} ${sidebarOpen ? styles.active : ''}`}>
-          <div className={styles.logo}>
+          <Link to="/home" className={styles.logo}>
             <div className={styles.logoIcon}>IT</div>
             <span className={styles.logoText}>Interview Tracker</span>
-          </div>
+          </Link>
 
           <nav className={styles.navSection}>
             <div className={styles.navLabel}>Positions</div>
@@ -92,6 +95,12 @@ function DashboardLayoutInner() {
         </aside>
 
         <main className={styles.mainContent}>
+          <header className={styles.contentHeader}>
+            <h1 className={styles.pageTitle}>{title}</h1>
+            <Link to="/profile" className={styles.userLink}>
+              {user?.first_name} {user?.last_name}
+            </Link>
+          </header>
           <Outlet />
         </main>
       </div>
@@ -106,7 +115,9 @@ function DashboardLayoutInner() {
 export function DashboardLayout() {
   return (
     <PositionsProvider>
-      <DashboardLayoutInner />
+      <PageTitleProvider>
+        <DashboardLayoutInner />
+      </PageTitleProvider>
     </PositionsProvider>
   );
 }

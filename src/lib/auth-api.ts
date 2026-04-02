@@ -1,4 +1,4 @@
-import type { User, LoginCredentials, SignupCredentials } from '../types/auth.ts';
+import type { User, LoginCredentials, SignupCredentials, UpdateUserData } from '../types/auth.ts';
 import { apiClient } from './api-client.ts';
 import { setToken, removeToken } from './token-storage.ts';
 
@@ -42,5 +42,13 @@ export async function signOut(): Promise<void> {
 
 export async function getCurrentUser(): Promise<User> {
   const { data } = await apiClient<User>('/api/user');
+  return data;
+}
+
+export async function updateCurrentUser(userData: UpdateUserData): Promise<User> {
+  const { data } = await apiClient<User>('/api/user', {
+    method: 'PATCH',
+    body: JSON.stringify({ user: userData }),
+  });
   return data;
 }
