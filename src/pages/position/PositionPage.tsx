@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import type { PositionWithCompany } from '../../types/position.ts';
 import { getPosition, updatePosition } from '../../lib/positions-api.ts';
 import { usePositions } from '../../features/positions/usePositions.ts';
+import { useSetPageTitle } from '../../features/page-title/useSetPageTitle.ts';
 import { InlineEdit } from '../../components/InlineEdit.tsx';
 import { PositionCard } from './PositionCard.tsx';
 import { InterviewStages } from './InterviewStages.tsx';
@@ -14,6 +15,8 @@ export function PositionPage() {
   const [position, setPosition] = useState<PositionWithCompany | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+
+  useSetPageTitle(position ? `${position.title} — ${position.company.name}` : 'Position');
 
   useEffect(() => {
     let cancelled = false;

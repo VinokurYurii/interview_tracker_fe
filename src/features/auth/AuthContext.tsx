@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { ReactNode } from 'react';
-import type { User, LoginCredentials, SignupCredentials } from '../../types/auth.ts';
-import { signIn, signUp, signOut, getCurrentUser } from '../../lib/auth-api.ts';
+import type { User, LoginCredentials, SignupCredentials, UpdateUserData } from '../../types/auth.ts';
+import { signIn, signUp, signOut, getCurrentUser, updateCurrentUser } from '../../lib/auth-api.ts';
 import { getToken } from '../../lib/token-storage.ts';
 import { AuthContext } from './auth-context.ts';
 
@@ -47,6 +47,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const updateUser = useCallback(async (data: UpdateUserData) => {
+    const userData = await updateCurrentUser(data);
+    setUser(userData);
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
@@ -56,6 +61,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         login,
         signup,
         logout,
+        updateUser,
       }}
     >
       {children}
