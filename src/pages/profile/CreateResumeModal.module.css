@@ -1,0 +1,36 @@
+.fileInput {
+    display: none;
+}
+
+.fileButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    background: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    width: 100%;
+    justify-content: center;
+}
+
+.fileButton:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.fileSelected {
+    border-style: solid;
+    color: var(--text-primary);
+    border-color: var(--accent);
+}
+
+.fileError {
+    color: var(--loss);
+    font-size: 13px;
+    margin-top: 6px;
+}

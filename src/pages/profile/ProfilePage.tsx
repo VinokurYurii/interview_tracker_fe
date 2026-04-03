@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { useAuth } from '../features/auth/useAuth.ts';
-import { useSetPageTitle } from '../features/page-title/useSetPageTitle.ts';
-import { ApiError } from '../lib/api-client.ts';
+import { useAuth } from '../../features/auth/useAuth.ts';
+import { useSetPageTitle } from '../../features/page-title/useSetPageTitle.ts';
+import { ApiError } from '../../lib/api-client.ts';
+import { ResumeList } from './ResumeList.tsx';
 import styles from './ProfilePage.module.css';
 
 export function ProfilePage() {
@@ -78,6 +79,11 @@ export function ProfilePage() {
             {isSubmitting ? 'Saving...' : 'Save Changes'}
           </button>
         </form>
+      </div>
+
+      <div className={styles.section}>
+        <h2 className={styles.sectionTitle}>My Resumes</h2>
+        <ResumeList />
       </div>
     </div>
   );

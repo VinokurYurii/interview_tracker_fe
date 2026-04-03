@@ -1,5 +1,6 @@
 import type { PositionWithCompany } from '../../types/position.ts';
 import { POSITION_STATUSES } from '../../types/position.ts';
+import { useResumes } from '../../features/resumes/useResumes.ts';
 import { InlineEdit } from '../../components/InlineEdit.tsx';
 import styles from './PositionCard.module.css';
 
@@ -7,9 +8,14 @@ interface PositionCardProps {
   position: PositionWithCompany;
   onFieldSave: (field: string, value: string) => void;
   onStatusChange: (value: string) => void;
+  onResumeChange: (resumeId: number | null) => void;
 }
 
-export function PositionCard({ position, onFieldSave, onStatusChange }: PositionCardProps) {
+export function PositionCard({ position, onFieldSave, onStatusChange, onResumeChange }: PositionCardProps) {
+  const { resumes } = useResumes();
+  const defaultResume = resumes.find((r) => r.default);
+  const otherResumes = resumes.filter((r) => !r.default);
+
   return (
     <div className={styles.card}>
       <div className={styles.field}>
@@ -22,6 +28,30 @@ export function PositionCard({ position, onFieldSave, onStatusChange }: Position
           {POSITION_STATUSES.map((status) => (
             <option key={status} value={status}>
               {status.charAt(0).toUpperCase() + status.slice(1)}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className={styles.field}>
+        <div className={styles.fieldLabel}>Resume</div>
+        <select
+          className={`form-input ${styles.statusSelect}`}
+          value={position.resume?.id ?? ''}
+          onChange={(e) => {
+            const val = e.target.value;
+            onResumeChange(val ? Number(val) : null);
+          }}
+        >
+          <option value="">None</option>
+          {defaultResume && (
+            <option key={defaultResume.id} value={defaultResume.id}>
+              {defaultResume.name} (default)
+            </option>
+          )}
+          {otherResumes.map((resume) => (
+            <option key={resume.id} value={resume.id}>
+              {resume.name}
             </option>
           ))}
         </select>

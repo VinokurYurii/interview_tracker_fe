@@ -16,8 +16,14 @@ export interface Position {
   user_id: number;
 }
 
+export interface PositionResume {
+  id: number;
+  name: string;
+}
+
 export interface PositionWithCompany extends Position {
   company: PositionCompany;
+  resume: PositionResume | null;
 }
 
 export interface CreatePositionData {
@@ -26,6 +32,7 @@ export interface CreatePositionData {
   description?: string;
   vacancy_url?: string;
   status?: PositionStatus;
+  resume_id?: number | null;
 }
 
 export interface UpdatePositionData {
@@ -33,4 +40,5 @@ export interface UpdatePositionData {
   description?: string;
   vacancy_url?: string;
   status?: PositionStatus;
+  resume_id?: number | null;
 }
