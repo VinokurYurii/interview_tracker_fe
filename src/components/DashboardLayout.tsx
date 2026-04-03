@@ -3,6 +3,7 @@ import { Outlet, NavLink, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../features/auth/useAuth.ts';
 import { usePositions } from '../features/positions/usePositions.ts';
 import { PositionsProvider } from '../features/positions/PositionsContext.tsx';
+import { ResumesProvider } from '../features/resumes/ResumesProvider.tsx';
 import { PageTitleProvider } from '../features/page-title/PageTitleProvider.tsx';
 import { usePageTitle } from '../features/page-title/usePageTitle.ts';
 import { ThemeToggleSwitch } from './ThemeToggleSwitch.tsx';
@@ -115,9 +116,11 @@ function DashboardLayoutInner() {
 export function DashboardLayout() {
   return (
     <PositionsProvider>
-      <PageTitleProvider>
-        <DashboardLayoutInner />
-      </PageTitleProvider>
+      <ResumesProvider>
+        <PageTitleProvider>
+          <DashboardLayoutInner />
+        </PageTitleProvider>
+      </ResumesProvider>
     </PositionsProvider>
   );
 }

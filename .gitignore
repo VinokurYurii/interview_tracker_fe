@@ -22,6 +22,9 @@ dist-ssr
 # Claude Code
 CLAUDE.md
 
+# Temporary files
+tmp/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

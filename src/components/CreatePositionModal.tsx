@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import type { FormEvent } from 'react';
 import type { Company } from '../types/company.ts';
 import { usePositions } from '../features/positions/usePositions.ts';
+import { useResumes } from '../features/resumes/useResumes.ts';
 import { createPosition } from '../lib/positions-api.ts';
 import { getCompanies } from '../lib/companies-api.ts';
 import { ApiError } from '../lib/api-client.ts';
@@ -14,9 +15,12 @@ interface CreatePositionModalProps {
 
 export function CreatePositionModal({ onClose }: CreatePositionModalProps) {
   const { addPosition } = usePositions();
+  const { resumes } = useResumes();
+  const defaultResume = resumes.find((r) => r.default);
   const [companies, setCompanies] = useState<Company[]>([]);
   const [title, setTitle] = useState('');
   const [companyId, setCompanyId] = useState('');
+  const [resumeId, setResumeId] = useState(defaultResume ? String(defaultResume.id) : '');
   const [description, setDescription] = useState('');
   const [vacancyUrl, setVacancyUrl] = useState('');
   const [error, setError] = useState('');
@@ -48,6 +52,7 @@ export function CreatePositionModal({ onClose }: CreatePositionModalProps) {
         company_id: Number(companyId),
         description: description || undefined,
         vacancy_url: vacancyUrl || undefined,
+        resume_id: resumeId ? Number(resumeId) : null,
       });
       addPosition(position);
       onClose();
@@ -112,6 +117,28 @@ export function CreatePositionModal({ onClose }: CreatePositionModalProps) {
                   </option>
                 ))}
                 <option value="__new__">+ Create new company</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label" htmlFor="position-resume">Resume</label>
+              <select
+                id="position-resume"
+                className={`form-input ${styles.select}`}
+                value={resumeId}
+                onChange={(e) => setResumeId(e.target.value)}
+              >
+                <option value="">None</option>
+                {defaultResume && (
+                  <option value={defaultResume.id}>
+                    {defaultResume.name} (default)
+                  </option>
+                )}
+                {resumes.filter((r) => !r.default).map((resume) => (
+                  <option key={resume.id} value={resume.id}>
+                    {resume.name}
+                  </option>
+                ))}
               </select>
             </div>
 

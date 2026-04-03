@@ -64,6 +64,16 @@ export function PositionPage() {
     }
   }
 
+  async function handleResumeChange(resumeId: number | null) {
+    if (!position) return;
+    try {
+      const updated = await updatePosition(position.id, { resume_id: resumeId });
+      setPosition(updated);
+    } catch {
+      // Keep current state on error
+    }
+  }
+
   if (isLoading) {
     return <div className={styles.loading}>Loading...</div>;
   }
@@ -88,6 +98,7 @@ export function PositionPage() {
         position={position}
         onFieldSave={handleFieldSave}
         onStatusChange={handleStatusChange}
+        onResumeChange={handleResumeChange}
       />
 
       <InterviewStages positionId={position.id} />

@@ -8,7 +8,7 @@ import { LoginPage } from './pages/LoginPage.tsx';
 import { SignupPage } from './pages/SignupPage.tsx';
 import { HomePage } from './pages/HomePage.tsx';
 import { PositionPage } from './pages/position/PositionPage.tsx';
-import { ProfilePage } from './pages/ProfilePage.tsx';
+import { ProfilePage } from './pages/profile/ProfilePage.tsx';
 
 function RootRedirect() {
   const { isAuthenticated, isLoading } = useAuth();
