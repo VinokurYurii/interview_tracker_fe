@@ -20,8 +20,6 @@ export function CreateResumeModal({ onClose }: CreateResumeModalProps) {
   const [fileError, setFileError] = useState('');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [nameWasTouched, setNameWasTouched] = useState(false);
-
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const selected = e.target.files?.[0];
     if (!selected) return;
@@ -41,14 +39,13 @@ export function CreateResumeModal({ onClose }: CreateResumeModalProps) {
     setFileError('');
     setFile(selected);
 
-    if (!nameWasTouched) {
+    if (!name.trim()) {
       setName(selected.name.replace(/\.pdf$/i, ''));
     }
   }
 
   function handleNameChange(value: string) {
     setName(value);
-    setNameWasTouched(true);
   }
 
   async function handleSubmit(e: FormEvent) {
