@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import type { Company } from '../types/company.ts';
 import { usePositions } from '../features/positions/usePositions.ts';
 import { useResumes } from '../features/resumes/useResumes.ts';
@@ -14,6 +15,7 @@ interface CreatePositionModalProps {
 }
 
 export function CreatePositionModal({ onClose }: CreatePositionModalProps) {
+  const navigate = useNavigate();
   const { addPosition } = usePositions();
   const { resumes } = useResumes();
   const defaultResume = resumes.find((r) => r.default);
@@ -56,6 +58,7 @@ export function CreatePositionModal({ onClose }: CreatePositionModalProps) {
       });
       addPosition(position);
       onClose();
+      navigate(`/positions/${position.id}`);
     } catch (err) {
       setError(err instanceof ApiError ? err.message : 'Failed to create position');
     } finally {
