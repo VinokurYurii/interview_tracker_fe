@@ -141,6 +141,11 @@
     margin-bottom: 6px;
 }
 
+.dateInput {
+    max-width: 180px;
+    cursor: pointer;
+}
+
 .statusSelect {
     appearance: none;
     cursor: pointer;

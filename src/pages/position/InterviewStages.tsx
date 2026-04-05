@@ -74,6 +74,16 @@ export function InterviewStages({ positionId }: InterviewStagesProps) {
     }
   }
 
+  async function handleScheduledAtChange(stageId: number, value: string) {
+    const scheduled_at = value ? `${value}T12:00` : null;
+    try {
+      const updated = await updateInterviewStage(positionId, stageId, { scheduled_at });
+      setStages((prev) => prev.map((s) => (s.id === updated.id ? updated : s)));
+    } catch {
+      // Keep current state on error
+    }
+  }
+
   async function handleStatusChange(stageId: number, value: string) {
     try {
       const updated = await updateInterviewStage(positionId, stageId, { status: value as StageStatus });
@@ -197,10 +207,11 @@ export function InterviewStages({ positionId }: InterviewStagesProps) {
 
                   <div className={styles.field}>
                     <div className={styles.fieldLabel}>Scheduled At</div>
-                    <InlineEdit
-                      value={stage.scheduled_at ? new Date(stage.scheduled_at).toLocaleString() : ''}
-                      onSave={(v) => handleStageFieldSave(stage.id, 'scheduled_at', v)}
-                      placeholder="Click to set date"
+                    <input
+                      type="date"
+                      className={`form-input ${styles.dateInput}`}
+                      value={stage.scheduled_at ? stage.scheduled_at.slice(0, 10) : ''}
+                      onChange={(e) => handleScheduledAtChange(stage.id, e.target.value)}
                     />
                   </div>
 

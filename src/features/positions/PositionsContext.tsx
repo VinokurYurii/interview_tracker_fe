@@ -35,8 +35,12 @@ export function PositionsProvider({ children }: { children: ReactNode }) {
     );
   }, []);
 
+  const removePosition = useCallback((id: number) => {
+    setPositions((prev) => prev.filter((p) => p.id !== id));
+  }, []);
+
   return (
-    <PositionsContext.Provider value={{ positions, isLoading, addPosition, updatePositionInList }}>
+    <PositionsContext.Provider value={{ positions, isLoading, addPosition, updatePositionInList, removePosition }}>
       {children}
     </PositionsContext.Provider>
   );

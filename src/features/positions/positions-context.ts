@@ -6,6 +6,7 @@ export interface PositionsContextValue {
   isLoading: boolean;
   addPosition: (position: PositionWithCompany) => void;
   updatePositionInList: (id: number, updates: Partial<PositionWithCompany>) => void;
+  removePosition: (id: number) => void;
 }
 
 export const PositionsContext = createContext<PositionsContextValue | null>(null);
