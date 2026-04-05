@@ -26,3 +26,7 @@ export async function updatePosition(id: number, positionData: UpdatePositionDat
   });
   return data;
 }
+
+export async function deletePosition(id: number): Promise<void> {
+  await apiClient(`/api/positions/${id}`, { method: 'DELETE' });
+}

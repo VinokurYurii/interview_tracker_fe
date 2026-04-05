@@ -32,10 +32,23 @@
     grid-column: 1 / -1;
 }
 
+.pageHeaderTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
 .pageHeader h1 {
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 4px;
+}
+
+.deleteBtn {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    font-size: 14px;
 }
 
 .companyName {

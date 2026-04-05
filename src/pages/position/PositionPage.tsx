@@ -1,20 +1,23 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import type { PositionWithCompany } from '../../types/position.ts';
-import { getPosition, updatePosition } from '../../lib/positions-api.ts';
+import { getPosition, updatePosition, deletePosition } from '../../lib/positions-api.ts';
 import { usePositions } from '../../features/positions/usePositions.ts';
 import { useSetPageTitle } from '../../features/page-title/useSetPageTitle.ts';
 import { InlineEdit } from '../../components/InlineEdit.tsx';
+import { ConfirmDialog } from '../../components/ConfirmDialog.tsx';
 import { PositionCard } from './PositionCard.tsx';
 import { InterviewStages } from './InterviewStages.tsx';
 import styles from './PositionPage.module.css';
 
 export function PositionPage() {
   const { id } = useParams<{ id: string }>();
-  const { updatePositionInList } = usePositions();
+  const navigate = useNavigate();
+  const { updatePositionInList, removePosition } = usePositions();
   const [position, setPosition] = useState<PositionWithCompany | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   useSetPageTitle(position ? `${position.title} — ${position.company.name}` : 'Position');
 
@@ -74,6 +77,17 @@ export function PositionPage() {
     }
   }
 
+  async function handleDelete() {
+    if (!position) return;
+    try {
+      await deletePosition(position.id);
+      removePosition(position.id);
+      navigate('/home');
+    } catch {
+      // Keep current state on error
+    }
+  }
+
   if (isLoading) {
     return <div className={styles.loading}>Loading...</div>;
   }
@@ -85,12 +99,20 @@ export function PositionPage() {
   return (
     <div className={styles.container}>
       <div className={styles.pageHeader}>
-        <h1>
-          <InlineEdit
-            value={position.title}
-            onSave={(v) => handleFieldSave('title', v)}
-          />
-        </h1>
+        <div className={styles.pageHeaderTop}>
+          <h1>
+            <InlineEdit
+              value={position.title}
+              onSave={(v) => handleFieldSave('title', v)}
+            />
+          </h1>
+          <button
+            className={`btn danger ${styles.deleteBtn}`}
+            onClick={() => setShowDeleteConfirm(true)}
+          >
+            Delete
+          </button>
+        </div>
         <span className={styles.companyName}>{position.company.name}</span>
       </div>
 
@@ -102,6 +124,14 @@ export function PositionPage() {
       />
 
       <InterviewStages positionId={position.id} />
+
+      {showDeleteConfirm && (
+        <ConfirmDialog
+          message={`Delete "${position.title}"? This will also delete all interview stages and feedback.`}
+          onConfirm={handleDelete}
+          onCancel={() => setShowDeleteConfirm(false)}
+        />
+      )}
     </div>
   );
 }
