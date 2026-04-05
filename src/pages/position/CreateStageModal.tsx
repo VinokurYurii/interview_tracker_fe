@@ -32,7 +32,7 @@ export function CreateStageModal({ positionId, onCreated, onClose }: CreateStage
       const stage = await createInterviewStage(positionId, {
         stage_type: stageType,
         status,
-        scheduled_at: scheduledAt || undefined,
+        scheduled_at: scheduledAt ? `${scheduledAt}T12:00` : undefined,
         calendar_link: calendarLink || undefined,
         notes: notes || undefined,
       });
@@ -96,7 +96,7 @@ export function CreateStageModal({ positionId, onCreated, onClose }: CreateStage
             <input
               id="stage-scheduled"
               className="form-input"
-              type="datetime-local"
+              type="date"
               value={scheduledAt}
               onChange={(e) => setScheduledAt(e.target.value)}
             />
