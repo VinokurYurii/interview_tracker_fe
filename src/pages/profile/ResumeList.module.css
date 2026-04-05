@@ -25,6 +25,16 @@
     font-weight: 700;
 }
 
+.resumeLink {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.resumeLink:hover {
+    color: var(--accent);
+}
+
 .actions {
     display: flex;
     align-items: center;

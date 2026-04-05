@@ -11,3 +11,15 @@ export interface ResumeRef {
   id: number;
   name: string;
 }
+
+export type AnalysisStatus = 'pending' | 'processing' | 'completed' | 'failed';
+
+export interface ResumeAnalysis {
+  content: string | null;
+  status: AnalysisStatus;
+  updated_at: string;
+}
+
+export interface ResumeDetail extends Resume {
+  resume_analysis: ResumeAnalysis | null;
+}

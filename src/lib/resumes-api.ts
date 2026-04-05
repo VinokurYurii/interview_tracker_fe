@@ -1,4 +1,4 @@
-import type { Resume } from '../types/resume.ts';
+import type { Resume, ResumeDetail, ResumeAnalysis } from '../types/resume.ts';
 import { apiClient } from './api-client.ts';
 
 export async function getResumes(): Promise<Resume[]> {
@@ -53,4 +53,16 @@ export async function deleteResume(id: number): Promise<DeleteResumeResult> {
     return { deleted: false, warning: data.warning, resume: data.resume };
   }
   return { deleted: true };
+}
+
+export async function getResume(id: number): Promise<ResumeDetail> {
+  const { data } = await apiClient<ResumeDetail>(`/api/resumes/${id}`);
+  return data;
+}
+
+export async function generateAnalysis(id: number): Promise<ResumeAnalysis> {
+  const { data } = await apiClient<ResumeAnalysis>(`/api/resumes/${id}/generate_analysis`, {
+    method: 'POST',
+  });
+  return data;
 }

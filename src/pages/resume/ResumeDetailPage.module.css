@@ -1,0 +1,183 @@
+/* ========================================
+   Resume Detail Page — Single Column
+======================================== */
+.container {
+    max-width: 800px;
+}
+
+.loading,
+.error {
+    padding: 40px;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.error {
+    color: var(--loss);
+}
+
+/* ========================================
+   Page Header
+======================================== */
+.pageHeader h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.fileActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.downloadLink {
+    color: var(--text-secondary);
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.downloadLink:hover {
+    color: var(--accent);
+    background-color: var(--bg-card);
+}
+
+.hiddenInput {
+    display: none;
+}
+
+.replaceBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.replaceBtn:hover {
+    color: var(--accent);
+    background-color: var(--bg-card);
+}
+
+.fileError {
+    color: var(--loss);
+    font-size: 13px;
+}
+
+/* ========================================
+   Analysis Section
+======================================== */
+.analysisSection {
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+}
+
+.analysisHeader {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.statusMessage {
+    color: var(--text-secondary);
+    font-size: 15px;
+    padding: 24px 0;
+}
+
+.analysisError {
+    color: var(--loss);
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.retryMessage {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.regenerateBtn {
+    margin-top: 24px;
+}
+
+/* ========================================
+   Markdown Content Typography
+======================================== */
+.analysisContent {
+    line-height: 1.7;
+    color: var(--text-primary);
+    font-size: 15px;
+}
+
+.analysisContent h1,
+.analysisContent h2,
+.analysisContent h3,
+.analysisContent h4,
+.analysisContent h5,
+.analysisContent h6 {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-top: 24px;
+    margin-bottom: 12px;
+}
+
+.analysisContent h3 {
+    font-size: 18px;
+}
+
+.analysisContent h4 {
+    font-size: 16px;
+}
+
+.analysisContent p {
+    margin-bottom: 12px;
+}
+
+.analysisContent ul,
+.analysisContent ol {
+    margin-bottom: 12px;
+    padding-left: 24px;
+}
+
+.analysisContent li {
+    margin-bottom: 6px;
+}
+
+.analysisContent strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.analysisContent hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 24px 0;
+}
+
+.analysisContent code {
+    background-color: var(--bg-secondary);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.analysisContent pre {
+    background-color: var(--bg-secondary);
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin-bottom: 12px;
+}
+
+.analysisContent pre code {
+    background: none;
+    padding: 0;
+}

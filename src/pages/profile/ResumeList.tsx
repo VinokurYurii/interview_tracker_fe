@@ -1,9 +1,9 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useResumes } from '../../features/resumes/useResumes.ts';
 import { updateResume, deleteResume } from '../../lib/resumes-api.ts';
 import { ApiError } from '../../lib/api-client.ts';
 import { API_BASE_URL } from '../../config.ts';
-import { InlineEdit } from '../../components/InlineEdit.tsx';
 import { CreateResumeModal } from './CreateResumeModal.tsx';
 import styles from './ResumeList.module.css';
 
@@ -20,16 +20,6 @@ export function ResumeList() {
       updateResumeInList(id, updated);
     } catch (err) {
       setError(err instanceof ApiError ? err.message : 'Failed to set default resume');
-    }
-  }
-
-  async function handleRename(id: number, name: string) {
-    setError('');
-    try {
-      const updated = await updateResume(id, { name });
-      updateResumeInList(id, updated);
-    } catch (err) {
-      setError(err instanceof ApiError ? err.message : 'Failed to rename resume');
     }
   }
 
@@ -63,10 +53,9 @@ export function ResumeList() {
             {resumes.map((resume) => (
               <div key={resume.id} className={styles.resumeItem}>
                 <div className={`${styles.resumeName} ${resume.default ? styles.resumeNameDefault : ''}`}>
-                  <InlineEdit
-                    value={resume.name}
-                    onSave={(name) => handleRename(resume.id, name)}
-                  />
+                  <Link to={`/resumes/${resume.id}`} className={styles.resumeLink}>
+                    {resume.name}
+                  </Link>
                 </div>
                 <div className={styles.actions}>
                   {resume.file_url && (
