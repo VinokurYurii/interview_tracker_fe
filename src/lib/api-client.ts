@@ -1,5 +1,6 @@
 import { API_BASE_URL } from '../config.ts';
 import { getToken, removeToken } from './token-storage.ts';
+import { notifyUnauthorized } from './auth-events.ts';
 
 export class ApiError extends Error {
   status: number;
@@ -42,6 +43,7 @@ export async function apiClient<T>(
 
   if (response.status === 401) {
     removeToken();
+    notifyUnauthorized();
   }
 
   if (!response.ok) {

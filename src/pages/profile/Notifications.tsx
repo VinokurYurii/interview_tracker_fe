@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { Notification } from '../../types/notification.ts';
 import { getNotifications, markNotificationRead } from '../../lib/notifications-api.ts';
-import { useAuth } from '../../features/auth/useAuth.ts';
+import { useAuthUser } from '../../features/auth/useAuthUser.ts';
 import { ApiError } from '../../lib/api-client.ts';
 import { NotificationItem } from './NotificationItem.tsx';
 import styles from './Notifications.module.css';
@@ -10,7 +10,7 @@ import styles from './Notifications.module.css';
 // affordance that opens the related resource (position / interview stage / resume).
 
 export function Notifications() {
-  const { refreshUser, decrementUnreadCount } = useAuth();
+  const { refreshUser, decrementUnreadCount } = useAuthUser();
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState('');

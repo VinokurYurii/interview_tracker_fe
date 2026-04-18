@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { useAuth } from '../../features/auth/useAuth.ts';
+import { useAuthUser } from '../../features/auth/useAuthUser.ts';
 import { useSetPageTitle } from '../../features/page-title/useSetPageTitle.ts';
 import { ApiError } from '../../lib/api-client.ts';
 import { ResumeList } from './ResumeList.tsx';
@@ -10,14 +10,14 @@ import styles from './ProfilePage.module.css';
 export function ProfilePage() {
   useSetPageTitle('Profile');
 
-  const { user, updateUser } = useAuth();
-  const [firstName, setFirstName] = useState(user?.first_name ?? '');
-  const [lastName, setLastName] = useState(user?.last_name ?? '');
+  const { user, updateUser } = useAuthUser();
+  const [firstName, setFirstName] = useState(user.first_name);
+  const [lastName, setLastName] = useState(user.last_name);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const hasChanges = firstName !== user?.first_name || lastName !== user?.last_name;
+  const hasChanges = firstName !== user.first_name || lastName !== user.last_name;
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -70,7 +70,7 @@ export function ProfilePage() {
 
             <div className="form-group">
               <span className="form-label">Email</span>
-              <span className={styles.emailValue}>{user?.email}</span>
+              <span className={styles.emailValue}>{user.email}</span>
             </div>
 
             <button
