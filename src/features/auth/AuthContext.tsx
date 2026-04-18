@@ -2,7 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import type { User, LoginCredentials, SignupCredentials, UpdateUserData } from '../../types/auth.ts';
 import { signIn, signUp, signOut, getCurrentUser, updateCurrentUser } from '../../lib/auth-api.ts';
-import { getToken } from '../../lib/token-storage.ts';
+import { getToken, onTokenRemovedInOtherTab } from '../../lib/token-storage.ts';
+import { onUnauthorized } from '../../lib/auth-events.ts';
 import { AuthContext } from './auth-context.ts';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -27,6 +28,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
 
     return () => { cancelled = true; };
+  }, []);
+
+  useEffect(() => {
+    return onUnauthorized(() => {
+      setUser(null);
+      setIsLoading(false);
+    });
+  }, []);
+
+  useEffect(() => {
+    return onTokenRemovedInOtherTab(() => {
+      setUser(null);
+      setIsLoading(false);
+    });
   }, []);
 
   const login = useCallback(async (credentials: LoginCredentials) => {

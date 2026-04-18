@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Outlet, NavLink, Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../features/auth/useAuth.ts';
+import { useAuthUser } from '../features/auth/useAuthUser.ts';
 import { usePositions } from '../features/positions/usePositions.ts';
 import { PositionsProvider } from '../features/positions/PositionsContext.tsx';
 import { ResumesProvider } from '../features/resumes/ResumesProvider.tsx';
@@ -12,7 +12,7 @@ import styles from './DashboardLayout.module.css';
 
 function DashboardLayoutInner() {
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
+  const { user, logout } = useAuthUser();
   const { title } = usePageTitle();
   const { positions } = usePositions();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -99,8 +99,8 @@ function DashboardLayoutInner() {
           <header className={styles.contentHeader}>
             <h1 className={styles.pageTitle}>{title}</h1>
             <Link to="/profile" className={styles.userLink}>
-              {user?.first_name} {user?.last_name}
-              {!!user?.unread_notifications_count && (
+              {user.first_name} {user.last_name}
+              {user.unread_notifications_count > 0 && (
                 <span className={styles.unreadBadge}>
                   {user.unread_notifications_count > 9 ? '9+' : user.unread_notifications_count}
                 </span>
