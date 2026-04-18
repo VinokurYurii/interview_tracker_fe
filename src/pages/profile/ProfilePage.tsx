@@ -4,6 +4,7 @@ import { useAuth } from '../../features/auth/useAuth.ts';
 import { useSetPageTitle } from '../../features/page-title/useSetPageTitle.ts';
 import { ApiError } from '../../lib/api-client.ts';
 import { ResumeList } from './ResumeList.tsx';
+import { Notifications } from './Notifications.tsx';
 import styles from './ProfilePage.module.css';
 
 export function ProfilePage() {
@@ -36,54 +37,63 @@ export function ProfilePage() {
 
   return (
     <div className={styles.profilePage}>
-      <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>Personal Information</h2>
-        <form onSubmit={handleSubmit}>
-          {error && <div className={styles.error}>{error}</div>}
-          {success && <div className={styles.success}>{success}</div>}
+      <div className={styles.leftColumn}>
+        <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>Personal Information</h2>
+          <form onSubmit={handleSubmit}>
+            {error && <div className={styles.error}>{error}</div>}
+            {success && <div className={styles.success}>{success}</div>}
 
-          <div className="form-group">
-            <label className="form-label" htmlFor="first-name">First Name</label>
-            <input
-              id="first-name"
-              className="form-input"
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
-            />
-          </div>
+            <div className="form-group">
+              <label className="form-label" htmlFor="first-name">First Name</label>
+              <input
+                id="first-name"
+                className="form-input"
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+              />
+            </div>
 
-          <div className="form-group">
-            <label className="form-label" htmlFor="last-name">Last Name</label>
-            <input
-              id="last-name"
-              className="form-input"
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              required
-            />
-          </div>
+            <div className="form-group">
+              <label className="form-label" htmlFor="last-name">Last Name</label>
+              <input
+                id="last-name"
+                className="form-input"
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+              />
+            </div>
 
-          <div className="form-group">
-            <span className="form-label">Email</span>
-            <span className={styles.emailValue}>{user?.email}</span>
-          </div>
+            <div className="form-group">
+              <span className="form-label">Email</span>
+              <span className={styles.emailValue}>{user?.email}</span>
+            </div>
 
-          <button
-            type="submit"
-            className="btn primary"
-            disabled={isSubmitting || !hasChanges}
-          >
-            {isSubmitting ? 'Saving...' : 'Save Changes'}
-          </button>
-        </form>
+            <button
+              type="submit"
+              className="btn primary"
+              disabled={isSubmitting || !hasChanges}
+            >
+              {isSubmitting ? 'Saving...' : 'Save Changes'}
+            </button>
+          </form>
+        </div>
+
+        <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>My Resumes</h2>
+          <ResumeList />
+        </div>
       </div>
 
-      <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>My Resumes</h2>
-        <ResumeList />
+      <div className={styles.rightColumn}>
+        <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>Notifications</h2>
+          <Notifications />
+        </div>
       </div>
     </div>
   );

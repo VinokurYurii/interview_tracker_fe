@@ -100,6 +100,11 @@ function DashboardLayoutInner() {
             <h1 className={styles.pageTitle}>{title}</h1>
             <Link to="/profile" className={styles.userLink}>
               {user?.first_name} {user?.last_name}
+              {!!user?.unread_notifications_count && (
+                <span className={styles.unreadBadge}>
+                  {user.unread_notifications_count > 9 ? '9+' : user.unread_notifications_count}
+                </span>
+              )}
             </Link>
           </header>
           <Outlet />

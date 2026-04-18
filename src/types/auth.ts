@@ -3,6 +3,7 @@ export interface User {
   first_name: string;
   last_name: string;
   email: string;
+  unread_notifications_count: number;
 }
 
 export interface LoginCredentials {

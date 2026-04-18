@@ -303,6 +303,9 @@
 }
 
 .userLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     color: var(--text-secondary);
     text-decoration: none;
     font-size: 14px;
@@ -316,6 +319,21 @@
 .userLink:hover {
     color: var(--text-primary);
     background-color: var(--bg-card);
+}
+
+.unreadBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 10px;
+    background-color: var(--loss);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
 }
 
 /* ========================================
