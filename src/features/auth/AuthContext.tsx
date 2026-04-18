@@ -52,6 +52,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(userData);
   }, []);
 
+  const refreshUser = useCallback(async () => {
+    const userData = await getCurrentUser();
+    setUser(userData);
+  }, []);
+
+  const decrementUnreadCount = useCallback(() => {
+    setUser((prev) =>
+      prev ? { ...prev, unread_notifications_count: Math.max(0, prev.unread_notifications_count - 1) } : prev,
+    );
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
@@ -62,6 +73,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signup,
         logout,
         updateUser,
+        refreshUser,
+        decrementUnreadCount,
       }}
     >
       {children}
