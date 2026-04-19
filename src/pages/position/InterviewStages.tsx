@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import type { InterviewStage, FeedbackType, StageStatus } from '../../types/interview-stage.ts';
 import { STAGE_TYPE_LABELS, STAGE_STATUSES, FEEDBACK_TYPE_LABELS } from '../../types/interview-stage.ts';
 import {
@@ -29,6 +30,9 @@ export function InterviewStages({ positionId }: InterviewStagesProps) {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [createFeedbackStageId, setCreateFeedbackStageId] = useState<number | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<DeleteTarget | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const stageRefs = useRef<Map<number, HTMLDivElement>>(new Map());
+  const handledDeepLinkRef = useRef(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -46,6 +50,27 @@ export function InterviewStages({ positionId }: InterviewStagesProps) {
 
     return () => { cancelled = true; };
   }, [positionId]);
+
+  useEffect(() => {
+    if (handledDeepLinkRef.current || isLoading) return;
+    const stageParam = searchParams.get('stage');
+    if (!stageParam) return;
+    const stageId = Number(stageParam);
+    if (!Number.isFinite(stageId)) return;
+    if (!stages.some((s) => s.id === stageId)) return;
+
+    handledDeepLinkRef.current = true;
+    setOpenStageIds((prev) => new Set(prev).add(stageId));
+
+    const node = stageRefs.current.get(stageId);
+    if (node) {
+      node.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    const next = new URLSearchParams(searchParams);
+    next.delete('stage');
+    setSearchParams(next, { replace: true });
+  }, [isLoading, stages, searchParams, setSearchParams]);
 
   function toggleAccordion(stageId: number) {
     setOpenStageIds((prev) => {
@@ -166,7 +191,14 @@ export function InterviewStages({ positionId }: InterviewStagesProps) {
           const existingFeedbackTypes = stage.feedbacks.map((f) => f.feedback_type) as FeedbackType[];
 
           return (
-            <div key={stage.id} className={styles.accordionItem}>
+            <div
+              key={stage.id}
+              className={styles.accordionItem}
+              ref={(node) => {
+                if (node) stageRefs.current.set(stage.id, node);
+                else stageRefs.current.delete(stage.id);
+              }}
+            >
               <div className={styles.accordionHeader} onClick={() => toggleAccordion(stage.id)}>
                 <div className={styles.accordionLeft}>
                   <span className={styles.chevron}>{isOpen ? '\u25BE' : '\u25B8'}</span>

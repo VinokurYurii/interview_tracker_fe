@@ -60,6 +60,24 @@
     padding: 0 16px 14px 16px;
     font-size: 14px;
     color: var(--text-secondary);
-    white-space: pre-wrap;
     line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.bodyText {
+    white-space: pre-wrap;
+}
+
+.bodyLink {
+    align-self: flex-start;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent-copper);
+    text-decoration: none;
+}
+
+.bodyLink:hover {
+    text-decoration: underline;
 }

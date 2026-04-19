@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import type { KeyboardEvent, MouseEvent } from 'react';
+import { Link } from 'react-router-dom';
 import type { Notification } from '../../types/notification.ts';
+import { getNotificationUrl, getNotificationLinkLabel } from '../../lib/notifications-api.ts';
 import styles from './NotificationItem.module.css';
 
 interface Props {
@@ -55,7 +57,20 @@ export function NotificationItem({ notification, onMarkRead }: Props) {
         )}
         <span className={styles.title}>{notification.title}</span>
       </div>
-      {expanded && <div className={styles.body}>{notification.body}</div>}
+      {expanded && (
+        <div className={styles.body}>
+          <div className={styles.bodyText}>{notification.body}</div>
+          {(() => {
+            const url = getNotificationUrl(notification);
+            if (!url) return null;
+            return (
+              <Link to={url} className={styles.bodyLink}>
+                {getNotificationLinkLabel(notification)}
+              </Link>
+            );
+          })()}
+        </div>
+      )}
     </div>
   );
 }
