@@ -188,6 +188,31 @@
 }
 
 /* ========================================
+   Position Filter
+======================================== */
+.positionFilter {
+    width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text-primary);
+    transition: border-color 0.2s ease;
+}
+
+.positionFilter:focus {
+    outline: none;
+    border-color: var(--accent-copper);
+}
+
+.positionFilter::placeholder {
+    color: var(--text-muted);
+}
+
+/* ========================================
    Position Nav Items
 ======================================== */
 .navItem {
