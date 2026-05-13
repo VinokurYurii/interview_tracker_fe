@@ -17,6 +17,15 @@ function DashboardLayoutInner() {
   const { positions } = usePositions();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [positionFilter, setPositionFilter] = useState('');
+
+  const filteredPositions = (() => {
+    const q = positionFilter.trim().toLowerCase();
+    if (!q) return positions;
+    return positions.filter(
+      (p) => p.title.toLowerCase().includes(q) || p.company.name.toLowerCase().includes(q),
+    );
+  })();
 
   async function handleLogout() {
     await logout();
@@ -63,7 +72,18 @@ function DashboardLayoutInner() {
               Create Position
             </button>
 
-            {positions.map((position) => (
+            {positions.length > 0 && (
+              <input
+                type="text"
+                className={styles.positionFilter}
+                placeholder="Filter positions…"
+                value={positionFilter}
+                onChange={(e) => setPositionFilter(e.target.value)}
+                aria-label="Filter positions"
+              />
+            )}
+
+            {filteredPositions.map((position) => (
               <NavLink
                 key={position.id}
                 to={`/positions/${position.id}`}

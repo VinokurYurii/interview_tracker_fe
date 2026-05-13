@@ -8,6 +8,7 @@ import { createPosition } from '../lib/positions-api.ts';
 import { getCompanies } from '../lib/companies-api.ts';
 import { ApiError } from '../lib/api-client.ts';
 import { CreateCompanyModal } from './CreateCompanyModal.tsx';
+import { CompanySelect } from './CompanySelect.tsx';
 import styles from './CreatePositionModal.module.css';
 
 interface CreatePositionModalProps {
@@ -20,14 +21,16 @@ export function CreatePositionModal({ onClose }: CreatePositionModalProps) {
   const { resumes } = useResumes();
   const defaultResume = resumes.find((r) => r.default);
   const [companies, setCompanies] = useState<Company[]>([]);
+  const [isLoadingCompanies, setIsLoadingCompanies] = useState(true);
   const [title, setTitle] = useState('');
-  const [companyId, setCompanyId] = useState('');
+  const [companyId, setCompanyId] = useState<number | null>(null);
   const [resumeId, setResumeId] = useState(defaultResume ? String(defaultResume.id) : '');
   const [description, setDescription] = useState('');
   const [vacancyUrl, setVacancyUrl] = useState('');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showCompanyModal, setShowCompanyModal] = useState(false);
+  const [pendingCompanyName, setPendingCompanyName] = useState('');
 
   useEffect(() => {
     let cancelled = false;
@@ -38,6 +41,9 @@ export function CreatePositionModal({ onClose }: CreatePositionModalProps) {
       })
       .catch(() => {
         // Silently fail — user can still create a new company
+      })
+      .finally(() => {
+        if (!cancelled) setIsLoadingCompanies(false);
       });
 
     return () => { cancelled = true; };
@@ -45,13 +51,17 @@ export function CreatePositionModal({ onClose }: CreatePositionModalProps) {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    if (!companyId) {
+      setError('Please select a company');
+      return;
+    }
     setError('');
     setIsSubmitting(true);
 
     try {
       const position = await createPosition({
         title,
-        company_id: Number(companyId),
+        company_id: companyId,
         description: description || undefined,
         vacancy_url: vacancyUrl || undefined,
         resume_id: resumeId ? Number(resumeId) : null,
@@ -66,12 +76,9 @@ export function CreatePositionModal({ onClose }: CreatePositionModalProps) {
     }
   }
 
-  function handleCompanyChange(value: string) {
-    if (value === '__new__') {
-      setShowCompanyModal(true);
-    } else {
-      setCompanyId(value);
-    }
+  function handleRequestCreateCompany(typedName: string) {
+    setPendingCompanyName(typedName);
+    setShowCompanyModal(true);
   }
 
   return (
@@ -105,22 +112,14 @@ export function CreatePositionModal({ onClose }: CreatePositionModalProps) {
             </div>
 
             <div className="form-group">
-              <label className="form-label" htmlFor="position-company">Company *</label>
-              <select
-                id="position-company"
-                className={`form-input ${styles.select}`}
+              <label className="form-label">Company *</label>
+              <CompanySelect
+                companies={companies}
+                isLoading={isLoadingCompanies}
                 value={companyId}
-                onChange={(e) => handleCompanyChange(e.target.value)}
-                required
-              >
-                <option value="" disabled>Select a company</option>
-                {companies.map((company) => (
-                  <option key={company.id} value={company.id}>
-                    {company.name}
-                  </option>
-                ))}
-                <option value="__new__">+ Create new company</option>
-              </select>
+                onChange={setCompanyId}
+                onRequestCreate={handleRequestCreateCompany}
+              />
             </div>
 
             <div className="form-group">
@@ -180,12 +179,17 @@ export function CreatePositionModal({ onClose }: CreatePositionModalProps) {
 
       {showCompanyModal && (
         <CreateCompanyModal
-          onClose={() => setShowCompanyModal(false)}
+          onClose={() => {
+            setShowCompanyModal(false);
+            setPendingCompanyName('');
+          }}
           onCreated={(company) => {
             setCompanies((prev) => [...prev, company]);
-            setCompanyId(String(company.id));
+            setCompanyId(company.id);
             setShowCompanyModal(false);
+            setPendingCompanyName('');
           }}
+          initialName={pendingCompanyName}
         />
       )}
     </>

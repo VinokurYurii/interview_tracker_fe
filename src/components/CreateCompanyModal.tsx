@@ -8,10 +8,11 @@ import styles from './CreateCompanyModal.module.css';
 interface CreateCompanyModalProps {
   onClose: () => void;
   onCreated: (company: Company) => void;
+  initialName?: string;
 }
 
-export function CreateCompanyModal({ onClose, onCreated }: CreateCompanyModalProps) {
-  const [name, setName] = useState('');
+export function CreateCompanyModal({ onClose, onCreated, initialName }: CreateCompanyModalProps) {
+  const [name, setName] = useState(initialName ?? '');
   const [siteLink, setSiteLink] = useState('');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
