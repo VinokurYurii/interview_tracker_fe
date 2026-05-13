@@ -41,9 +41,12 @@ export async function apiClient<T>(
     credentials: 'omit',
   });
 
-  if (response.status === 401) {
+  // Devise's failure_app redirects unauthenticated requests to /api/auth/sign_in,
+  // which returns 200 with a UserSerializer body. Treat any redirected response as 401.
+  if (response.status === 401 || response.redirected) {
     removeToken();
     notifyUnauthorized();
+    throw new ApiError(401, ['Unauthorized']);
   }
 
   if (!response.ok) {
